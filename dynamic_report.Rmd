@@ -70,7 +70,7 @@ latest_data %>%
 
 For the ads that were skippable, the mean length of time before the skip button was presented was `r mean_skip_length` seconds.
 
-The maximum length of an ad was `r max_ad_length` seconds, while the minimum length was `r min_ad_length` seconds, and the mean ad length was `r mean_ad_length`
+The maximum length of an ad was `r max_ad_length` seconds, while the minimum length was `r min_ad_length` seconds, and the mean ad length was `r mean_ad_length` seconds. 
 
 The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` seconds, while the mean length of an ad when it was not skippable was `r mean_ad_no_skip` seconds. 
 
