@@ -66,26 +66,31 @@ latest_data %>%
        x = "Presentation of Ad", 
        y = "Frequency",
        caption = "Source: Project 2 Survey")
+
+frame1 <- image_blank(color = "#ADD8E6", width = 500, height = 500) %>%
+  image_annotate(text = paste0("Maximum length of ads: \n", max_ad_length, " seconds"), 
+                 size = 40, 
+                 gravity = "center")
+frame2 <- image_blank(color = "#ADD8E6", width = 500, height = 500) %>%
+  image_annotate(text = paste0("Minimum length of ads: \n",  min_ad_length, " seconds"), 
+                 size = 40, 
+                 gravity = "center")
+frame3 <- image_blank(color = "#ADD8E6", width = 500, height = 500) %>%
+  image_annotate(text = paste0("Mean length of ads: \n", mean_ad_length, " seconds"), 
+                 size = 40, 
+                 gravity = "center")
+
+frames <- c(frame1, frame2, frame3)
+
+# creating an animation
+image_animate(frames, fps = 1)
+
 ```
 
 
 For the ads that were skippable, the mean length of time before the skip button was presented was `r mean_skip_length` seconds.
 
-The maximum length of an ad was `r max_ad_length` seconds, while the minimum length was `r min_ad_length` seconds, and the mean ad length was `r mean_ad_length` seconds. 
-
 The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` seconds, while the mean length of an ad when it was not skippable was `r mean_ad_no_skip` seconds. 
 
 The mean length of the video when the ad was skippable was `r mean_video_yes_skip` seconds, while the mean length of a video when it was not skippable was `r mean_video_no_skip` seconds. 
 
-```{r}
-
-pie_meme <- image_read("https://i.imgflip.com/9h6h71.png") %>%
-  image_scale(500)
-
-uno_meme <- image_read("https://i.imgflip.com/9jeogi.jpg") %>% 
-  image_scale(500)
-
-meme_vector <- c(pie_meme, uno_meme)
-image_append(meme_vector) %>% image_scale(500)
-
-```
