@@ -1,0 +1,80 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body {
+  font-family: serif;
+  background-color: #ADD8E6;
+}
+
+p {
+font-size: 20px;
+}
+
+```
+
+## Observation of the features of Ads on Youtube Videos
+
+```{r}
+library(tidyverse)
+# read in data
+logged_data <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR_7onUBm866lQhkIdG9BkRjjBqQTftFDPhY5n1vo6ehOAN0Lk5hNoz2AxcNXp9o372pND_GEoDAcAc/pub?gid=269772251&single=true&output=csv")
+latest_data <- logged_data %>%
+  rename(ad = 2,
+         when_ad = 3,
+         ad_length = 4,
+         skip = 5,
+         skip_length = 6, 
+         video_length = 7, 
+         video_views = 8)
+
+mean_skip_length <- latest_data$skip_length %>% mean(na.rm=TRUE) %>% round(1)
+
+max_ad_length <- latest_data$ad_length %>% max()
+min_ad_length <- latest_data$ad_length %>% min()
+mean_ad_length <- latest_data$ad_length %>% mean() %>% round(1)
+
+# mean length of ad for when the ad is skippable and it isn't 
+mean_ad_no_skip <- latest_data$ad_length[latest_data$skip == "No"] %>% mean() %>% round(1)
+mean_ad_yes_skip <- latest_data$ad_length[latest_data$skip == "Yes"] %>% mean() %>% round(1)
+
+# mean length of video when ad is skippable and it isn't
+mean_video_no_skip <- latest_data$video_length[latest_data$skip == "No"] %>% mean() %>% round(1)
+mean_video_yes_skip <- latest_data$video_length[latest_data$skip == "Yes"] %>% mean() %>% round(1)
+
+
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = ad_length,
+               fill = skip)) +
+  labs(title = "Length of Ad compared to whether it could be skipped",
+       x = "Ad Length (in seconds)",
+       y = "Frequency",
+       caption = "Source: Project 2 Survey")
+
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = when_ad), 
+           fill = c("red","blue","green")) +
+  labs(title = "Frequency of when the Ad was presented", 
+       x = "Presentation of Ad", 
+       y = "Frequency",
+       caption = "Source: Project 2 Survey")
+```
+
+
+For the ads that were skippable, the mean length of time before the skip button was presented was `r mean_skip_length` seconds.
+
+The maximum length of an ad was `r max_ad_length` seconds, while the minimum length was `r min_ad_length` seconds, and the mean ad length was `r mean_ad_length`
+
+The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` seconds, while the mean length of an ad when it was not skippable was lower at `r mean_ad_no_skip` seconds. 
+
+The mean length of the video when the ad was skippable was `r mean_video_yes_skip` seconds, while the mean length of a video when it was not skippable was higher at `r mean_video_no_skip` seconds. 
+
