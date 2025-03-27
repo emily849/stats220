@@ -5,7 +5,7 @@ output: html_fragment
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
-
+library(tidyverse)
 ```
 
 ```{css}
@@ -23,7 +23,6 @@ font-size: 20px;
 ## Observation of the features of Ads on Youtube Videos
 
 ```{r}
-library(tidyverse)
 # read in data
 logged_data <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR_7onUBm866lQhkIdG9BkRjjBqQTftFDPhY5n1vo6ehOAN0Lk5hNoz2AxcNXp9o372pND_GEoDAcAc/pub?gid=269772251&single=true&output=csv")
 latest_data <- logged_data %>%
@@ -49,7 +48,6 @@ mean_ad_yes_skip <- latest_data$ad_length[latest_data$skip == "Yes"] %>% mean() 
 mean_video_no_skip <- latest_data$video_length[latest_data$skip == "No"] %>% mean() %>% round(1)
 mean_video_yes_skip <- latest_data$video_length[latest_data$skip == "Yes"] %>% mean() %>% round(1)
 
-
 latest_data %>%
   ggplot() +
   geom_bar(aes(x = ad_length,
@@ -74,7 +72,7 @@ For the ads that were skippable, the mean length of time before the skip button 
 
 The maximum length of an ad was `r max_ad_length` seconds, while the minimum length was `r min_ad_length` seconds, and the mean ad length was `r mean_ad_length`
 
-The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` seconds, while the mean length of an ad when it was not skippable was lower at `r mean_ad_no_skip` seconds. 
+The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` seconds, while the mean length of an ad when it was not skippable was `r mean_ad_no_skip` seconds. 
 
-The mean length of the video when the ad was skippable was `r mean_video_yes_skip` seconds, while the mean length of a video when it was not skippable was higher at `r mean_video_no_skip` seconds. 
+The mean length of the video when the ad was skippable was `r mean_video_yes_skip` seconds, while the mean length of a video when it was not skippable was `r mean_video_no_skip` seconds. 
 
