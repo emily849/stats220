@@ -6,6 +6,7 @@ output: html_fragment
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 library(tidyverse)
+library(magick)
 ```
 
 ```{css}
@@ -76,3 +77,15 @@ The mean length of the ad when the ad was skippable was `r mean_ad_yes_skip` sec
 
 The mean length of the video when the ad was skippable was `r mean_video_yes_skip` seconds, while the mean length of a video when it was not skippable was `r mean_video_no_skip` seconds. 
 
+```{r}
+
+pie_meme <- image_read("https://i.imgflip.com/9h6h71.png") %>%
+  image_scale(500)
+
+uno_meme <- image_read("https://i.imgflip.com/9jeogi.jpg") %>% 
+  image_scale(500)
+
+meme_vector <- c(pie_meme, uno_meme)
+image_append(meme_vector) %>% image_scale(500)
+
+```
